@@ -10,24 +10,26 @@ OUTPUT_PDF="Maruthi_Reddy_Resume.pdf"
 echo "🚀 Generating PDF from $RESUME_URL"
 echo ""
 
-# Generate screenshots for each slide
+# Generate screenshots for each slide with full page capture
 for i in {1..6}; do
   echo "📸 Capturing slide $i..."
   google-chrome --headless=new \
     --disable-gpu \
     --no-sandbox \
     --window-size=1280,720 \
+    --force-device-scale-factor=1 \
     --screenshot="slide${i}.png" \
-    --virtual-time-budget=10000 \
+    --hide-scrollbars \
+    --virtual-time-budget=15000 \
     "${RESUME_URL}/slide${i}.html" 2>/dev/null
-  sleep 1
+  sleep 2
 done
 
 echo ""
 echo "📄 Converting screenshots to PDF..."
 
-# Convert screenshots to PDF
-img2pdf slide1.png slide2.png slide3.png slide4.png slide5.png slide6.png -o "$OUTPUT_PDF"
+# Convert screenshots to PDF with proper page size
+img2pdf --pagesize 1280x720 slide1.png slide2.png slide3.png slide4.png slide5.png slide6.png -o "$OUTPUT_PDF"
 
 # Cleanup
 rm slide*.png
