@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Current Focus &amp; Vision</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #0B1120; /* Slate 950 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SVG Grid Background */
+        .svg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Background decorations - Solid colors with blur */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .bg-orb-1 {
+            width: 700px;
+            height: 700px;
+            top: -200px;
+            right: -200px;
+            background-color: #0ea5e9; /* Sky 500 */
+        }
+        
+        .bg-orb-2 {
+            width: 600px;
+            height: 600px;
+            bottom: -200px;
+            left: -100px;
+            background-color: #14b8a6; /* Teal 500 */
+        }
+
+        .bg-orb-3 {
+            width: 400px;
+            height: 400px;
+            top: 40%;
+            left: 40%;
+            background-color: #6366f1; /* Indigo 500 */
+            opacity: 0.08;
+        }
+
+        /* Layout Structure */
+        .main-content {
+            display: flex;
+            height: 100%;
+            z-index: 10;
+            padding: 50px 80px 40px 80px;
+            gap: 60px;
+        }
+
+        /* Left Column: Current Role & Contact */
+        .left-panel {
+            flex: 0 0 35%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #38bdf8;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background-color: #38bdf8;
+        }
+
+        .role-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .role-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: #38bdf8;
+            border-top-left-radius: 16px;
+            border-bottom-left-radius: 16px;
+        }
+
+        .company-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .ericsson-icon {
+            font-size: 1.5rem;
+            color: #38bdf8;
+        }
+
+        .company-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .dept-name {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background-color: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            color: #34d399;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #34d399;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+        }
+
+        .contact-box {
+            margin-top: auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background-color: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-color: #38bdf8;
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+
+        .contact-text h4 {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .contact-text p {
+            margin: 0;
+            font-size: 1rem;
+            color: #f1f5f9;
+        }
+
+        /* Right Column: Focus Areas */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .header-desc {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Make the last item span full width if odd number */
+        .focus-grid .focus-card:nth-last-child(1):nth-child(odd) {
+            grid-column: span 2;
+        }
+
+        .focus-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .focus-card:hover {
+            transform: translateY(-4px);
+            background-color: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .focus-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        /* Theme Colors for Focus Cards */
+        .theme-ai .focus-icon { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); }
+        .theme-ai:hover { border-color: rgba(168, 85, 247, 0.5); }
+
+        .theme-edge .focus-icon { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); }
+        .theme-edge:hover { border-color: rgba(56, 189, 248, 0.5); }
+
+        .theme-auto .focus-icon { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.2); }
+        .theme-auto:hover { border-color: rgba(249, 115, 22, 0.5); }
+
+        .theme-cloud .focus-icon { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.2); }
+        .theme-cloud:hover { border-color: rgba(99, 102, 241, 0.5); }
+
+        .theme-obs .focus-icon { background: rgba(20, 184, 166, 0.15); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.2); }
+        .theme-obs:hover { border-color: rgba(20, 184, 166, 0.5); }
+
+        .focus-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin: 0 0 6px 0;
+        }
+
+        .focus-content p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Decorative tech elements */
+        .tech-line {
+            position: absolute;
+            background-color: rgba(255,255,255,0.1);
+            z-index: 5;
+        }
+        
+        .tech-node {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            z-index: 6;
+        }
+
+        /* Footer Strip */
+        .footer-strip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: #38bdf8; /* Fallback */
+            display: flex;
+        }
+        
+        .strip-seg { flex: 1; height: 100%; }
+        .seg-1 { background-color: #0ea5e9; }
+        .seg-2 { background-color: #06b6d4; }
+        .seg-3 { background-color: #14b8a6; }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- SVG Grid Background -->
+<svg class="svg-grid" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+<!-- Background Orbs -->
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+<!-- Main Content Wrapper -->
+<div class="main-content">
+<!-- Left Panel: Current Role & Contact -->
+<div class="left-panel">
+<div class="section-tag">Current Mission</div>
+<!-- Role Card -->
+<div class="role-card">
+<div class="company-logo-area">
+<i class="fas fa-network-wired ericsson-icon"></i>
+<span class="company-name">Ericsson</span>
+</div>
+<h2 class="job-title">License Management Developer</h2>
+<p class="dept-name">RCS Middleware</p>
+<div class="status-badge">
+<div class="pulse-dot"></div>
+<span>Active Role</span>
+</div>
+</div>
+<!-- Contact Info -->
+<div class="contact-box">
+<div class="contact-item">
+<div class="contact-icon">
+<i class="fab fa-linkedin-in"></i>
+</div>
+<div class="contact-text">
+<h4>Connect on LinkedIn</h4>
+<p>linkedin.com/in/maruthireddyo</p>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">
+<i class="fas fa-envelope"></i>
+</div>
+<div class="contact-text">
+<h4>Email Contact</h4>
+<p>maruthi.reddy.o@ericsson.com</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Future Focus -->
+<div class="right-panel">
+<div>
+<h1 class="header-title">Vision &amp; Focus Areas</h1>
+<p class="header-desc">Driving innovation at the intersection of Telecommunications and Artificial Intelligence through strategic technology initiatives.</p>
+</div>
+<div class="focus-grid">
+<!-- Item 1: AI -->
+<div class="focus-card theme-ai">
+<div class="focus-icon">
+<i class="fas fa-brain"></i>
+</div>
+<div class="focus-content">
+<h3>Applied AI &amp; Agentic Systems</h3>
+<p>Developing autonomous agents that optimize network functions through intelligent decision-making.</p>
+</div>
+</div>
+<!-- Item 2: Edge -->
+<div class="focus-card theme-edge">
+<div class="focus-icon">
+<i class="fas fa-microchip"></i>
+</div>
+<div class="focus-content">
+<h3>On-device &amp; Edge AI</h3>
+<p>Pushing intelligence to the network edge for lower latency and enhanced privacy.</p>
+</div>
+</div>
+<!-- Item 3: Automation -->
+<div class="focus-card theme-auto">
+<div class="focus-icon">
+<i class="fas fa-sliders-h"></i>
+</div>
+<div class="focus-content">
+<h3>Policy-Driven Automation</h3>
+<p>Implementing rule-based systems that automatically adjust to network conditions.</p>
+</div>
+</div>
+<!-- Item 4: Cloud -->
+<div class="focus-card theme-cloud">
+<div class="focus-icon">
+<i class="fas fa-cloud-meatball"></i>
+</div>
+<div class="focus-content">
+<h3>Hybrid Cloud-Edge</h3>
+<p>Architecting seamless integration between centralized cloud resources and edge nodes.</p>
+</div>
+</div>
+<!-- Item 5: Observability (Full Width) -->
+<div class="focus-card theme-obs">
+<div class="focus-icon">
+<i class="fas fa-chart-network"></i>
+</div>
+<div class="focus-content">
+<h3>AI-Assisted Operations</h3>
+<p>Enhancing system observability and operational efficiency using predictive AI models to preemptively identify issues.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="footer-strip">
+<div class="strip-seg seg-1"></div>
+<div class="strip-seg seg-2"></div>
+<div class="strip-seg seg-3"></div>
+</div>
+</div>
+</body>
+</html>

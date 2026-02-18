@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maruthi Reddy O - Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        /* Custom styles to replace CSS gradients and ensure export compatibility */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0f172a; /* Slate 900 fallback */
+            font-family: 'Inter', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            /* Background simulation using a solid color and overlay images/svgs instead of CSS gradients */
+            background-color: #0B1120;
+        }
+
+        /* Abstract background shapes using SVG pattern simulation */
+        .bg-shape-1 {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 800px;
+            height: 800px;
+            background-color: #0ea5e9; /* Sky 500 */
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(80px);
+            z-index: 1;
+        }
+
+        .bg-shape-2 {
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 700px;
+            height: 700px;
+            background-color: #14b8a6; /* Teal 500 */
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(100px);
+            z-index: 1;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 2;
+            /* Note: Using linear-gradient for grid lines is often safe for simple patterns, 
+               but strictly speaking per instructions "Do not use any CSS gradients", 
+               I will remove this and use an SVG pattern instead below. */
+            background: none; 
+        }
+
+        .svg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 0.15;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 100px;
+            padding-right: 80px;
+        }
+
+        .name-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 5rem;
+            line-height: 1.1;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .role-tagline {
+            font-size: 1.75rem;
+            color: #e2e8f0; /* Slate 200 */
+            font-weight: 300;
+            margin-bottom: 48px;
+            border-left: 4px solid #0ea5e9; /* Sky 500 */
+            padding-left: 24px;
+            max-width: 800px;
+        }
+
+        .location-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tech-decoration {
+            position: absolute;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 450px;
+            height: 450px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-ring {
+            position: absolute;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 50%;
+        }
+
+        .ring-1 { width: 400px; height: 400px; border-style: dashed; animation: spin 60s linear infinite; }
+        .ring-2 { width: 300px; height: 300px; border-color: rgba(20, 184, 166, 0.3); }
+        .ring-3 { width: 200px; height: 200px; border-width: 2px; border-color: rgba(255,255,255,0.1); }
+
+        .icon-floating {
+            position: absolute;
+            color: rgba(255,255,255,0.8);
+            font-size: 24px;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- SVG Grid Background Pattern -->
+<svg class="svg-grid" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="50" id="grid" patternunits="userSpaceOnUse" width="50">
+<path d="M 50 0 L 0 0 0 50" fill="none" stroke="white" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+<!-- Simulated Gradient Blobs -->
+<div class="bg-shape-1"></div>
+<div class="bg-shape-2"></div>
+<!-- Main Content -->
+<div class="content-wrapper">
+<div>
+<p class="text-sky-400 font-bold tracking-widest uppercase mb-4 text-sm">Professional Portfolio</p>
+<h1 class="name-title">
+                    Maruthi<br/>
+<span style="color: #38bdf8;">Reddy O</span>
+</h1>
+<div class="role-tagline">
+<p>Senior Software Developer</p>
+<p class="text-xl mt-2 text-slate-400">Telecom Systems &amp; Applied AI  |  15+ Years Experience</p>
+</div>
+<div class="location-badge">
+<i class="fas fa-location-dot mr-3 text-sky-400"></i>
+<p class="m-0">Stockholm, Sweden</p>
+</div>
+</div>
+</div>
+<!-- Tech Visual Element on Right -->
+<div class="tech-decoration">
+<div class="circle-ring ring-1"></div>
+<div class="circle-ring ring-2"></div>
+<div class="circle-ring ring-3"></div>
+<!-- Center Logo/Icon Placeholder -->
+<div class="relative z-10 bg-slate-800 p-6 rounded-2xl border border-sky-500/30 shadow-2xl">
+<i class="fas fa-code text-5xl text-sky-400"></i>
+</div>
+<!-- Floating Tech Icons around -->
+<div class="icon-floating" style="top: 20px; right: 80px;">
+<i class="fas fa-brain text-purple-400"></i>
+</div>
+<div class="icon-floating" style="bottom: 40px; left: 60px;">
+<i class="fas fa-cloud text-teal-400"></i>
+</div>
+<div class="icon-floating" style="top: 100px; left: 0px;">
+<i class="fas fa-network-wired text-blue-400"></i>
+</div>
+<div class="icon-floating" style="bottom: 100px; right: 0px;">
+<i class="fas fa-robot text-pink-400"></i>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="absolute bottom-0 left-0 w-full h-2 bg-sky-600 z-50"></div>
+</div>
+</body>
+</html>

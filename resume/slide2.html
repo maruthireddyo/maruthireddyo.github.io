@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Professional Journey Timeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #0B1120; /* Slate 950 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Background decorations */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .bg-circle-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -100px;
+            background-color: rgba(14, 165, 233, 0.05); /* Sky 500 low opacity */
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+        .bg-circle-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -100px;
+            left: -100px;
+            background-color: rgba(20, 184, 166, 0.05); /* Teal 500 low opacity */
+            border: 1px solid rgba(20, 184, 166, 0.1);
+        }
+
+        .header {
+            padding: 60px 80px 20px 80px;
+            z-index: 10;
+        }
+
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-wrapper {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 60px;
+            z-index: 10;
+        }
+
+        /* The horizontal line */
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 80px;
+            right: 80px;
+            height: 4px;
+            background-color: #334155;
+            border-radius: 2px;
+            transform: translateY(-50%);
+        }
+
+        /* Fill effect for the line */
+        .timeline-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(56, 189, 248, 0.3);
+            border-radius: 2px;
+        }
+
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 180px;
+        }
+
+        /* The dot on the timeline */
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            background-color: #0f172a;
+            border: 4px solid #38bdf8;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background-color: #38bdf8;
+            box-shadow: 0 0 0 8px rgba(56, 189, 248, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Content positioning: alternating top and bottom */
+        .content-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            width: 220px;
+            position: absolute;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-item:hover .content-card {
+            border-color: #38bdf8;
+            transform: translateY(-5px);
+        }
+
+        /* Top items */
+        .pos-top .content-card {
+            bottom: 40px;
+            border-bottom: 4px solid #38bdf8;
+        }
+        
+        .pos-top .year-label {
+            position: absolute;
+            top: 40px;
+            font-weight: 700;
+            color: #94a3b8;
+        }
+
+        /* Bottom items */
+        .pos-bottom .content-card {
+            top: 40px;
+            border-top: 4px solid #14b8a6;
+        }
+
+        .pos-bottom .year-label {
+            position: absolute;
+            bottom: 40px;
+            font-weight: 700;
+            color: #94a3b8;
+        }
+
+        .role-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .company-name {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .desc-text {
+            font-size: 0.75rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        .year-pill {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 8px;
+        }
+
+        /* Transition Marker */
+        .transition-marker {
+            position: absolute;
+            top: 50%;
+            left: 32%; /* Position between item 2 and 3 */
+            transform: translate(-50%, -50%);
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .transition-icon {
+            background-color: #0f172a;
+            border: 2px dashed #64748b;
+            color: #fbbf24; /* Amber */
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .transition-label {
+            font-size: 0.75rem;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-top: 60px; /* Push label below line */
+        }
+        
+        .arrow-path {
+            position: absolute;
+            top: 50%;
+            left: 28%;
+            width: 8%;
+            height: 2px;
+            /* Dashed line override */
+            background: repeating-linear-gradient(90deg, #64748b 0, #64748b 6px, transparent 6px, transparent 10px);
+            z-index: 5;
+            transform: translateY(-50%);
+        }
+
+        /* Customizing specific card colors */
+        .card-bsn .year-pill { color: #f97316; background-color: rgba(249, 115, 22, 0.1); }
+        .card-ericsson .year-pill { color: #38bdf8; background-color: rgba(56, 189, 248, 0.1); }
+        
+        /* Grid pattern overlay */
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            pointer-events: none;
+            /* Since CSS gradients are discouraged, using SVG for grid instead */
+            background: none; 
+        }
+
+        .svg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- SVG Grid Background -->
+<svg class="svg-grid" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+<div class="bg-circle bg-circle-1"></div>
+<div class="bg-circle bg-circle-2"></div>
+<!-- Header -->
+<div class="header">
+<h1 class="title">Professional Journey</h1>
+<div class="subtitle">
+<i class="fas fa-history text-sky-400"></i>
+<p>Career Progression (2008 – Present)</p>
+</div>
+</div>
+<!-- Timeline Section -->
+<div class="timeline-wrapper">
+<!-- Line -->
+<div class="timeline-line">
+<div class="timeline-line-fill"></div>
+</div>
+<!-- Transition Marker: India to Sweden -->
+<div class="transition-marker">
+<div class="transition-icon">
+<i class="fas fa-plane-departure"></i>
+</div>
+<div class="transition-label">
+<i class="fas fa-flag mr-1"></i> India <i class="fas fa-arrow-right mx-1"></i> Sweden
+                </div>
+</div>
+<div class="arrow-path"></div>
+<div class="timeline-items">
+<!-- Node 1: BSNL Bangalore (Top) -->
+<div class="timeline-item pos-top">
+<div class="timeline-dot"></div>
+<div class="content-card card-bsn">
+<span class="year-pill">2008 – 2011</span>
+<div class="role-title">Telecom Systems Engineer</div>
+<div class="company-name"><i class="fas fa-building text-orange-400"></i> BSNL, Bangalore</div>
+<p class="desc-text">Core telecom infrastructure and systems engineering foundations.</p>
+</div>
+<div class="year-label">2008</div>
+</div>
+<!-- Node 2: BSNL Hyderabad (Bottom) -->
+<div class="timeline-item pos-bottom">
+<div class="timeline-dot"></div>
+<div class="year-label">2011</div>
+<div class="content-card card-bsn">
+<span class="year-pill">2011 – 2012</span>
+<div class="role-title">Mediation &amp; Billing</div>
+<div class="company-name"><i class="fas fa-file-invoice-dollar text-orange-400"></i> BSNL, Hyderabad</div>
+<p class="desc-text">Specialized in billing systems and mediation protocols.</p>
+</div>
+</div>
+<!-- Spacer for Transition visual -->
+<div class="timeline-item" style="width: 100px; opacity: 0;"></div>
+<!-- Node 3: Ericsson IoT (Top) -->
+<div class="timeline-item pos-top">
+<div class="timeline-dot"></div>
+<div class="content-card card-ericsson">
+<span class="year-pill">2012 – 2021</span>
+<div class="role-title">IoT Accelerator</div>
+<div class="company-name"><i class="fas fa-network-wired text-sky-400"></i> Ericsson</div>
+<p class="desc-text">Billing/Mediation &amp; Microservices architecture for global IoT platform.</p>
+</div>
+<div class="year-label">2012</div>
+</div>
+<!-- Node 4: Ericsson Cloud RAN (Bottom) -->
+<div class="timeline-item pos-bottom">
+<div class="timeline-dot"></div>
+<div class="year-label">2022</div>
+<div class="content-card card-ericsson">
+<span class="year-pill">2022 – 2024</span>
+<div class="role-title">Cloud RAN Dev</div>
+<div class="company-name"><i class="fas fa-cloud text-sky-400"></i> Ericsson</div>
+<p class="desc-text">Cloud-native enablement, Kubernetes, and Helm deployments.</p>
+</div>
+</div>
+<!-- Node 5: Current Role (Top) -->
+<div class="timeline-item pos-top">
+<div class="timeline-dot" style="background-color: #38bdf8; box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.4);"></div>
+<div class="content-card card-ericsson" style="border-color: #38bdf8; background: linear-gradient(145deg, #1e293b, #0f172a);">
+<span class="year-pill" style="background-color: rgba(56, 189, 248, 0.2); color: white;">2025 – Present</span>
+<div class="role-title">RCS Middleware (LM)</div>
+<div class="company-name"><i class="fas fa-microchip text-teal-400"></i> Ericsson</div>
+<p class="desc-text">License Management, Agentic Systems &amp; Applied AI focus.</p>
+</div>
+<div class="year-label" style="color: #38bdf8;">Present</div>
+</div>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-sky-600 to-teal-500 z-50"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Key Achievements &amp; Impact</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #0B1120; /* Slate 950 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SVG Grid Background */
+        .svg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+        /* Background decorations - using solid colors with blur instead of gradients */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .bg-blob-1 {
+            width: 700px;
+            height: 700px;
+            top: -200px;
+            left: -100px;
+            background-color: #0ea5e9; /* Sky 500 */
+        }
+        
+        .bg-blob-2 {
+            width: 600px;
+            height: 600px;
+            bottom: -150px;
+            right: -100px;
+            background-color: #14b8a6; /* Teal 500 */
+        }
+
+        .header {
+            padding: 40px 80px 20px 80px;
+            z-index: 10;
+        }
+
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Achievements Grid */
+        .achievements-grid {
+            flex: 1;
+            padding: 20px 80px 50px 80px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 24px;
+            z-index: 10;
+        }
+
+        .achievement-card {
+            background-color: rgba(30, 41, 59, 0.6); /* Slate 800 */
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.4);
+            background-color: rgba(30, 41, 59, 0.8);
+        }
+
+        /* Badge/Icon Styles */
+        .icon-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .check-mark {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 24px;
+            height: 24px;
+            background-color: #10b981; /* Emerald 500 */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: white;
+            border: 2px solid #1e293b;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Typography */
+        .highlight-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0 0 8px 0;
+            color: #f8fafc;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #38bdf8; /* Sky 400 */
+            margin: 0 0 8px 0;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #cbd5e1; /* Slate 300 */
+            margin: 0;
+        }
+
+        /* Card Color Variations */
+        .card-blue .icon-badge { background-color: rgba(14, 165, 233, 0.15); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.3); }
+        .card-teal .icon-badge { background-color: rgba(20, 184, 166, 0.15); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.3); }
+        .card-amber .icon-badge { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .card-purple .icon-badge { background-color: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+        .card-rose .icon-badge { background-color: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+        .card-indigo .icon-badge { background-color: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+
+        /* decorative corner accent for cards */
+        .card-corner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            opacity: 0.5;
+        }
+        
+        .corner-triangle {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 60px;
+            height: 60px;
+            transform: rotate(45deg);
+            background-color: rgba(255,255,255,0.05);
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- SVG Grid Background -->
+<svg class="svg-grid" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+<!-- Background Orbs -->
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<!-- Header -->
+<div class="header">
+<h1 class="title">Key Achievements &amp; Impact</h1>
+<div class="subtitle">
+<i class="fas fa-star text-amber-400"></i>
+<p>Major milestones and professional contributions</p>
+</div>
+</div>
+<!-- Grid Content -->
+<div class="achievements-grid">
+<!-- Card 1: Experience -->
+<div class="achievement-card card-amber">
+<div class="card-corner"><div class="corner-triangle"></div></div>
+<div class="icon-badge">
+<i class="fas fa-trophy"></i>
+<div class="check-mark"><i class="fas fa-check"></i></div>
+</div>
+<h2 class="highlight-number">15+ Years</h2>
+<h3 class="card-title">Telecom Systems</h3>
+<p class="card-desc">Extensive experience building robust, large-scale telecom architectures across multiple domains.</p>
+</div>
+<!-- Card 2: Scale -->
+<div class="achievement-card card-blue">
+<div class="card-corner"><div class="corner-triangle"></div></div>
+<div class="icon-badge">
+<i class="fas fa-database"></i>
+<div class="check-mark"><i class="fas fa-check"></i></div>
+</div>
+<h2 class="highlight-number">Billions</h2>
+<h3 class="card-title">CDRs Processed</h3>
+<p class="card-desc">Designed systems processing billions of Call Detail Records monthly with high throughput.</p>
+</div>
+<!-- Card 3: CI/CD -->
+<div class="achievement-card card-teal">
+<div class="card-corner"><div class="corner-triangle"></div></div>
+<div class="icon-badge">
+<i class="fas fa-sync-alt"></i>
+<div class="check-mark"><i class="fas fa-check"></i></div>
+</div>
+<h2 class="highlight-number">Pipeline</h2>
+<h3 class="card-title">CI/CD Leadership</h3>
+<p class="card-desc">Led the implementation of automated pipelines using Jenkins &amp; Git for streamlined delivery.</p>
+</div>
+<!-- Card 4: Cloud Native -->
+<div class="achievement-card card-indigo">
+<div class="card-corner"><div class="corner-triangle"></div></div>
+<div class="icon-badge">
+<i class="fas fa-cloud"></i>
+<div class="check-mark"><i class="fas fa-check"></i></div>
+</div>
+<h2 class="highlight-number">Cloud Native</h2>
+<h3 class="card-title">K8s Deployment</h3>
+<p class="card-desc">Successfully deployed microservices architectures using Kubernetes &amp; Helm charts.</p>
+</div>
+<!-- Card 5: Migration -->
+<div class="achievement-card card-purple">
+<div class="card-corner"><div class="corner-triangle"></div></div>
+<div class="icon-badge">
+<i class="fas fa-code-branch"></i>
+<div class="check-mark"><i class="fas fa-check"></i></div>
+</div>
+<h2 class="highlight-number">Migration</h2>
+<h3 class="card-title">Legacy to Erlang</h3>
+<p class="card-desc">Migrated critical legacy C codebase to Erlang, significantly improving system reliability.</p>
+</div>
+<!-- Card 6: Leadership -->
+<div class="achievement-card card-rose">
+<div class="card-corner"><div class="corner-triangle"></div></div>
+<div class="icon-badge">
+<i class="fas fa-users-cog"></i>
+<div class="check-mark"><i class="fas fa-check"></i></div>
+</div>
+<h2 class="highlight-number">Leadership</h2>
+<h3 class="card-title">Cross-Functional</h3>
+<p class="card-desc">Led cross-functional teams in complex IoT billing initiatives, driving project success.</p>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-sky-600 to-teal-500 z-50"></div>
+</div>
+</body>
+</html>
