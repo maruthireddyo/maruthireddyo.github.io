@@ -386,6 +386,7 @@
 <div class="role-title">Telecom Systems Engineer</div>
 <div class="company-name"><i class="fas fa-building text-orange-400"></i> BSNL, Bangalore</div>
 <p class="desc-text">Core telecom infrastructure and systems engineering foundations.</p>
+<button class="info-btn" onclick="showModal('bsnl1')"><i class="fas fa-info-circle"></i> Details</button>
 </div>
 <div class="year-label">2008</div>
 </div>
@@ -398,6 +399,7 @@
 <div class="role-title">Mediation &amp; Billing</div>
 <div class="company-name"><i class="fas fa-file-invoice-dollar text-orange-400"></i> BSNL, Hyderabad</div>
 <p class="desc-text">Specialized in billing systems and mediation protocols.</p>
+<button class="info-btn" onclick="showModal('bsnl2')"><i class="fas fa-info-circle"></i> Details</button>
 </div>
 </div>
 <!-- Spacer for Transition visual -->
@@ -454,6 +456,29 @@
 
 <script>
 const projectData = {
+  bsnl1: {
+    title: "Telecom Systems Engineer",
+    period: "Aug 2008 - April 2011 | Bangalore, India",
+    description: "Deployed various Messaging and Storage Service platforms, Operation Support System (OSS) & Billing, Security System and Enterprise Management System in Data Centers across four cities over the National Internet Backbone.",
+    responsibilities: [
+      "Implementation of mediation and prepaid billing system for data services",
+      "Developing custom utilities using PL/SQL and shell scripting to satisfy client requirements",
+      "Setting up disaster recovery environment",
+      "Core telecom infrastructure and systems engineering foundations"
+    ]
+  },
+  bsnl2: {
+    title: "Oracle Apps Techno Functional Consultant",
+    period: "April 2011 - June 2012 | Hyderabad, India",
+    description: "Implemented CDR-based Billing and Customer Care solution throughout India with four zones and four data centres to provide a flexible system to overcome limitations of existing Meter Based system.",
+    responsibilities: [
+      "Designing and developing GL Interface to form journals from multiple feeder systems",
+      "Handling finance reports: trial balance, ledger report & reconciliation between different systems",
+      "Developed PL/SQL, UNIX shell scripts for process automation",
+      "Registration of packages, shell scripts, defining of request and request sets",
+      "Journal Configuration in Kenan"
+    ]
+  },
   rcs: {
     title: "RCS MW License Management",
     period: "Jan 2025 - Present | Stockholm",
