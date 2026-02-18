@@ -8,6 +8,10 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
     body { font-family: Arial, sans-serif; background: #0f172a; display: flex; flex-direction: column; }
+    .top-nav { height: 45px; background: #0f172a; display: flex; justify-content: center; align-items: center; gap: 10px; border-bottom: 1px solid #334155; flex-shrink: 0; }
+    .top-nav button { padding: 8px 16px; font-size: 13px; background: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
+    .top-nav button:hover { background: #1e293b; color: white; border-color: #3b82f6; }
+    .top-nav button.active { background: #3b82f6; color: white; border-color: #3b82f6; }
     .slide-wrapper { flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; padding: 20px 20px 0 20px; overflow: hidden; }
     iframe { width: 100%; height: 100%; border: none; background: white; display: block; }
     .nav { height: 50px; background: #1e293b; display: flex; justify-content: center; align-items: center; gap: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); flex-shrink: 0; }
@@ -15,14 +19,27 @@
     .nav button:hover:not(:disabled) { background: #2563eb; }
     .nav button:disabled { background: #64748b; cursor: not-allowed; opacity: 0.5; }
     .nav span { color: white; font-size: 14px; font-weight: 500; min-width: 60px; text-align: center; }
+    .download-btn { background: #10b981 !important; }
+    .download-btn:hover { background: #059669 !important; }
     @media (max-width: 768px) {
+      .top-nav { height: auto; flex-wrap: wrap; padding: 8px; gap: 6px; }
+      .top-nav button { padding: 6px 12px; font-size: 11px; }
       .slide-wrapper { padding: 10px 10px 0 10px; }
       .nav button { padding: 8px 16px; font-size: 12px; }
       .nav span { font-size: 12px; }
+      .download-btn { padding: 8px 12px !important; }
     }
   </style>
 </head>
 <body>
+  <div class="top-nav">
+    <button onclick="goToSlide(1)" id="nav1">About</button>
+    <button onclick="goToSlide(2)" id="nav2">Experience</button>
+    <button onclick="goToSlide(3)" id="nav3">Skills</button>
+    <button onclick="goToSlide(4)" id="nav4">Projects</button>
+    <button onclick="goToSlide(5)" id="nav5">Achievements</button>
+    <button onclick="goToSlide(6)" id="nav6">Contact</button>
+  </div>
   <div class="slide-wrapper">
     <iframe id="slideFrame" src="slide1.html" scrolling="yes"></iframe>
   </div>
@@ -30,20 +47,32 @@
     <button id="prev" onclick="navigate(-1)">← Previous</button>
     <span id="counter">1 / 6</span>
     <button id="next" onclick="navigate(1)">Next →</button>
+    <button class="download-btn" onclick="window.open('Maruthi_Reddy_Resume.pdf', '_blank')">📄 Download PDF</button>
   </div>
   <script>
     let current = 1;
     const total = 6;
+    function updateNav() {
+      document.getElementById('counter').textContent = current + ' / ' + total;
+      document.getElementById('prev').disabled = current === 1;
+      document.getElementById('next').disabled = current === total;
+      for (let i = 1; i <= total; i++) {
+        document.getElementById('nav' + i).classList.toggle('active', i === current);
+      }
+    }
+    function goToSlide(num) {
+      current = num;
+      document.getElementById('slideFrame').src = 'slide' + current + '.html';
+      updateNav();
+    }
     function navigate(dir) {
       current += dir;
       if (current < 1) current = 1;
       if (current > total) current = total;
       document.getElementById('slideFrame').src = 'slide' + current + '.html';
-      document.getElementById('counter').textContent = current + ' / ' + total;
-      document.getElementById('prev').disabled = current === 1;
-      document.getElementById('next').disabled = current === total;
+      updateNav();
     }
-    document.getElementById('prev').disabled = true;
+    updateNav();
   </script>
 </body>
 </html>
