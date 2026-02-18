@@ -29,6 +29,12 @@
       .nav span { font-size: 12px; }
       .download-btn { padding: 8px 12px !important; }
     }
+    @media print {
+      .top-nav, .nav { display: none !important; }
+      .slide-wrapper { padding: 0; max-width: 100%; }
+      body { background: white; }
+      iframe { height: 100vh; page-break-after: always; }
+    }
   </style>
 </head>
 <body>
@@ -47,11 +53,14 @@
     <button id="prev" onclick="navigate(-1)">← Previous</button>
     <span id="counter">1 / 6</span>
     <button id="next" onclick="navigate(1)">Next →</button>
-    <button class="download-btn" onclick="window.open('Maruthi_Reddy_Resume.pdf', '_blank')">📄 Download PDF</button>
+    <button class="download-btn" onclick="printResume()">📄 Print/Save PDF</button>
   </div>
   <script>
     let current = 1;
     const total = 6;
+    function printResume() {
+      window.print();
+    }
     function updateNav() {
       document.getElementById('counter').textContent = current + ' / ' + total;
       document.getElementById('prev').disabled = current === 1;
