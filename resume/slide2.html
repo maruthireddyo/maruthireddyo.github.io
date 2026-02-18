@@ -299,6 +299,54 @@
             opacity: 0.1;
         }
 
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            background-color: #1e293b;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #38bdf8;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            color: #f1f5f9;
+        }
+        .close {
+            color: #94a3b8;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover { color: #38bdf8; }
+        .modal h2 { color: #38bdf8; margin-bottom: 15px; }
+        .modal h3 { color: #14b8a6; margin-top: 20px; margin-bottom: 10px; font-size: 1.1rem; }
+        .modal ul { margin-left: 20px; line-height: 1.8; }
+        .modal p { line-height: 1.6; margin-bottom: 10px; }
+        .info-btn {
+            background: #38bdf8;
+            border: none;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            margin-top: 8px;
+            transition: all 0.2s;
+        }
+        .info-btn:hover { background: #0ea5e9; }
+
     </style>
 </head>
 <body>
@@ -362,6 +410,7 @@
 <div class="role-title">IoT Accelerator</div>
 <div class="company-name"><i class="fas fa-network-wired text-sky-400"></i> Ericsson, Stockholm</div>
 <p class="desc-text">Billing/Mediation &amp; Microservices architecture for global IoT platform.</p>
+<button class="info-btn" onclick="showModal('iot')"><i class="fas fa-info-circle"></i> Details</button>
 </div>
 <div class="year-label"><i class="fas fa-plane-departure" style="font-size: 12px; margin-right: 4px; color: #38bdf8;"></i>2012</div>
 </div>
@@ -374,6 +423,7 @@
 <div class="role-title">Cloud RAN Engineering</div>
 <div class="company-name"><i class="fas fa-cloud text-sky-400"></i> Ericsson, Stockholm</div>
 <p class="desc-text">Cloud-native enablement, Kubernetes, and Helm deployments.</p>
+<button class="info-btn" onclick="showModal('cloudran')"><i class="fas fa-info-circle"></i> Details</button>
 </div>
 </div>
 <!-- Node 5: Current Role (Top) -->
@@ -384,6 +434,7 @@
 <div class="role-title">Radio Control System Engineering</div>
 <div class="company-name"><i class="fas fa-microchip text-teal-400"></i> Ericsson, Stockholm</div>
 <p class="desc-text">Agentic Systems &amp; Applied AI focus.</p>
+<button class="info-btn" onclick="showModal('rcs')"><i class="fas fa-info-circle"></i> Details</button>
 </div>
 <div class="year-label" style="color: #38bdf8;">Present</div>
 </div>
@@ -392,5 +443,86 @@
 <!-- Footer Strip -->
 <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-sky-600 to-teal-500 z-50"></div>
 </div>
+
+<!-- Modal -->
+<div id="projectModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const projectData = {
+  rcs: {
+    title: "RCS MW License Management",
+    period: "Jan 2025 - Present | Stockholm",
+    description: "Ericsson's RBS Control System Middleware (RCS MW) manages baseband software and licensing in Radio networks, ensuring scalable, flexible, and automated configuration and license management of radio base station (RBS) nodes.",
+    responsibilities: [
+      "Developing License Management (LM) functionality for Baseband nodes",
+      "Alarm and alert handling for critical license workflows",
+      "Migrating legacy C-based GLMS components to Erlang, improving reliability and maintainability",
+      "Working with distributed, message-driven systems aligned with telecom-grade availability",
+      "Contributing to discussions on automation, policy-driven control, and future AI-assisted operations"
+    ]
+  },
+  cloudran: {
+    title: "Cloud RAN Engineering",
+    period: "Jan 2022 - Dec 2024 | Stockholm",
+    description: "Ericsson Cloud RAN is a cloud-native software solution handling computing functionality in RAN, providing increased flexibility, faster service delivery, and greater scalability in networks.",
+    responsibilities: [
+      "Built and deployed cloud-native microservices using Kubernetes & Helm",
+      "Automated gNodeB provisioning pipelines",
+      "Collaborated with platform teams on innersourcing",
+      "Gained deep understanding of edge-cloud execution, relevant to on-device agent architectures"
+    ]
+  },
+  iot: {
+    title: "IoT Accelerator - Billing Expert",
+    period: "June 2012 - Dec 2021 | Stockholm",
+    description: "IOT Accelerator is a cloud service enabling operators to offer connectivity management to enterprise customers. The platform supports operators in building up the IoT business and managing connectivity.",
+    responsibilities: [
+      "Lead cross-functional features like price plan creation & update automation to cut OpEx",
+      "Service architect for integrating pricing & account creation with custom GUI",
+      "Experience in scalability & performance issues in billing systems",
+      "Handled large transactions: rating, invoicing, reporting, SIM provisioning",
+      "Lead team to implement CI/CD pipeline flow for billing system",
+      "Automated deployment and environment setup processes",
+      "Automated test process using Robot Framework & Junit",
+      "Gathered and analyzed business requirements, feasibility studies, feature design, impact analysis"
+    ]
+  }
+};
+
+function showModal(project) {
+  const data = projectData[project];
+  const modal = document.getElementById('projectModal');
+  const body = document.getElementById('modalBody');
+  
+  body.innerHTML = `
+    <h2>${data.title}</h2>
+    <p style="color: #38bdf8; font-weight: 600;">${data.period}</p>
+    <p>${data.description}</p>
+    <h3>Key Responsibilities:</h3>
+    <ul>
+      ${data.responsibilities.map(r => `<li>${r}</li>`).join('')}
+    </ul>
+  `;
+  
+  modal.style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('projectModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('projectModal');
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+</script>
+
 </body>
 </html>
